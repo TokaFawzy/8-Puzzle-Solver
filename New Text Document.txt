@@ -1,0 +1,21 @@
+vector<vector<int>> initial_state  = {{8, 6, 7}, {2, 5, 4}, {3, 0, 1}};
+        vector<vector<int>> goal = {
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 0}
+        };
+BFS -->
+the number of steps is : 181439
+Time taken: 5813.16 ms
+
+GBFS -->
+Execution Time: 5129.92 ms
+No solution found.
+
+IDS -->
+Solution Depth = 32
+Time taken: 3840.80 ms
+
+A*  -->
+Number of steps for reach g(n) = 31
+Time taken: 280.86 ms
