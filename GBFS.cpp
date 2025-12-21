@@ -127,15 +127,19 @@ void greedy_best_first_search(const vector<vector<int>>& initial_state, int br, 
             }
         }
     }
+                auto end_time = chrono::high_resolution_clock::now();
+            chrono::duration<double, std::milli> duration = end_time - start_time;
+            cout << "Execution Time: " << fixed << setprecision(2) << duration.count() << " ms" << endl;
+
     cout << "No solution found." << endl;
 }
 
 int main() {
     vector<vector<int>> initial_state = {
         {1, 2, 3},
-        {0, 4, 5},
-        {6, 7, 8}
-    };//{{8, 6, 7}, {2, 5, 4}, {3, 0, 1}}
+        {0, 4, 6},
+        {7, 5, 8}
+    };;//{{8, 6, 7}, {2, 5, 4}, {3, 0, 1}}
     
     int blank_row = 1;
     int blank_col = 0; 

@@ -1,25 +1,23 @@
 #include <iostream>
 #include <vector>
-#include <queue>
-#include <set>
 #include <chrono>
 #include <iomanip>
 #include<unordered_set>
 using namespace std;
 
-/* ---------- Global Variables ---------- */
+//goal state
 vector<vector<int>> goal = {
     {1, 2, 3},
     {4, 5, 6},
     {7, 8, 0}
 };
 
-/* ---------- Check Goal State ---------- */
+// Check Goal State
 bool isGoal(vector<vector<int>> &state) {
     return state == goal;
 }
 
-/* ---------- Convert State to String ---------- */
+// Convert State to String
 string stateToString(vector<vector<int>> &state) {
     string s = "";
     for(int i = 0; i < 3; i++)
@@ -28,7 +26,7 @@ string stateToString(vector<vector<int>> &state) {
     return s;
 }
 
-/* ---------- Find Blank Position ---------- */
+// Find Blank Position 
 pair<int,int> findBlank(vector<vector<int>> &state) {
     for(int i = 0; i < 3; i++)
         for(int j = 0; j < 3; j++)
@@ -37,30 +35,33 @@ pair<int,int> findBlank(vector<vector<int>> &state) {
     return {-1, -1};
 }
 
-/* ---------- Generate Children States ---------- */
+//Generate Children States
 vector<vector<vector<int>>> getChildren(vector<vector<int>> &state) {
-    vector<vector<vector<int>>> children;
+    vector<vector<vector<int>>> children; // container نخزن فيه كل الحالات الجديده
+  // مصفوفات الاتجاهات
     int dx[] = {0, 0, 1, -1};
     int dy[] = {1, -1, 0, 0};
-
+//تحديد مكان الخانة الفاضية
     pair<int, int> blank = findBlank(state);
     int x = blank.first;
     int y = blank.second;
-
+//حساب المكان الجديد
     for(int i = 0; i < 4; i++) {
         int nx = x + dx[i];
         int ny = y + dy[i];
-
+//Boundary Check
         if(nx >= 0 && nx < 3 && ny >= 0 && ny < 3) {
-            vector<vector<int>> newState = state;
-            swap(newState[x][y], newState[nx][ny]);
-            children.push_back(newState);
+            vector<vector<int>> newState = state; // انشاء حالات جديده
+            swap(newState[x][y], newState[nx][ny]);// تحريك الخانه الفاضيه
+            children.push_back(newState); //حفظ الحالات الجديده
         }
     }
+    
     return children;
 }
 
-/* ---------- Depth Limited Search ---------- */
+// perform Depth Limited Search 
+
 bool DLS(vector<vector<int>> state, int depth, int limit,
          vector<vector<vector<int>>> &path,
          unordered_set<string> &visited) {
